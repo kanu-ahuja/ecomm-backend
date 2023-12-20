@@ -8,10 +8,6 @@ const user=(sequelize,DataTypes)=>{
           class:{
             type:DataTypes.STRING
           },
-          
-    }
-
-    )
-
+    })
 }
 export default user;

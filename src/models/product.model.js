@@ -1,5 +1,5 @@
 const product = (sequelize, DataTypes) => {
-    return sequelize.define("product", {
+    return sequelize.define("product1", {
       name: {
         type: DataTypes.STRING,
       },
