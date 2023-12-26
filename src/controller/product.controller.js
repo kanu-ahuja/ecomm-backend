@@ -33,4 +33,14 @@ const readDetails = async (req, res) => {
     }
 }
 
-export { create, read, readDetails }
+const getDetailsById =async(req,res)=>{
+    try {
+    let response= await db.products.findOne({where: {id:req.params.email}})
+    res.status(200).send(response) 
+    } catch (error) {
+        console.log(error, "==error")
+        res.status(404).send("product not found")
+    }
+}
+
+export { create, read, readDetails,getDetailsById }
