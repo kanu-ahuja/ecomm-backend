@@ -125,6 +125,7 @@ const deleteuser=async(req,res)=>{
               id: id
             }
         })
+        
         res.sendStatus(200).send(deleteUser)
     }
     catch{
