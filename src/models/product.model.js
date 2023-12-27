@@ -9,6 +9,9 @@ const product = (sequelize, DataTypes) => {
       price: {
         type: DataTypes.STRING,
       },
+      image: {
+        type: DataTypes.STRING,
+      },
       rating: {
         type: DataTypes.STRING,
       },

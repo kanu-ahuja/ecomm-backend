@@ -2,6 +2,8 @@ import db from '../db/index.js'
 
 const create = async (req, res) => {
     try {
+        req.body.image=req.file.filename
+        console.log(req.body,req.file.filename);
         let data = await db.products.create(req.body);
         res.status(200).send(data)
     } catch (error) {
@@ -23,8 +25,8 @@ const read = async (req, res) => {
 
 const readDetails = async (req, res) => {
     try {
-        const {id} = req.params;
-        let data = await db.products.findOne({where : {id : id}});
+        const { id } = req.params;
+        let data = await db.products.findOne({ where: { id: id } });
         res.status(200).send(data);
     }
     catch {
@@ -33,14 +35,45 @@ const readDetails = async (req, res) => {
     }
 }
 
-const getDetailsById =async(req,res)=>{
+const getDetailsById = async (req, res) => {
     try {
-    let response= await db.products.findOne({where: {id:req.params.email}})
-    res.status(200).send(response) 
+        let response = await db.products.findOne({ where: { id: req.params.email } })
+        res.status(200).send(response)
     } catch (error) {
         console.log(error, "==error")
         res.status(404).send("product not found")
     }
 }
 
-export { create, read, readDetails,getDetailsById }
+const update = async (req, res) => {
+    try {
+        const { id } = req.params;
+        let updateproduct = await db.products.update({ title: req.body.title }, {
+            where: {
+                id: id
+            }
+        })
+        res.status(200).send(updateproduct)
+    }
+    catch {
+        console.log("==error")
+        res.status(404).send("product not found")
+    }
+}
+const deleteproduct =async(req,res)=>{
+    try{
+        const {id} = req.params;
+
+        let response= await db.products.destroy( {
+            where: {
+              id: id
+            }
+        })
+        res.sendStatus(200).send(response)
+    }
+    catch{
+        console.log("error");
+        res.status(400).send("user not found")
+    }
+}
+export { create, read, readDetails, getDetailsById, update ,deleteproduct}

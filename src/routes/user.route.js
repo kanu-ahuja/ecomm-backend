@@ -1,16 +1,13 @@
-import { getUsers, saveUsers, useAndoperators, useOroperators, useNotoperators, useGreateroperators,updateuser,deleteuser} from "../controller/usercontroller.js";
-
+import * as product from "../controller/usercontroller.js";
 
 const userRoute = (app) => {
-    app.get('/get-users', getUsers);
-    app.post('/save-users', saveUsers);
-    app.get('/getandoperators/:id', useAndoperators);
-    app.get('/getoroperators/:id', useOroperators);
-    app.get('/getnotoperators/:id', useNotoperators);
-    app.get('/getgreateroperators/:id', useGreateroperators);
-
-    app.put('/updateUser/:id',updateuser);
-    app.delete('/deleteUser/:id',deleteuser);
-
+    app.get('/get-users', product.getUsers);
+    app.post('/save-users', product.saveUsers);
+    app.get('/getandoperators/:id', product.useAndoperators);
+    app.get('/getoroperators/:id', product.useOroperators);
+    app.get('/getnotoperators/:id', product.useNotoperators);
+    app.get('/getgreateroperators/:id', product.useGreateroperators);
+    app.put('/updateUser/:id',product.updateuser)
+    app.delete('/deleteUser/:id',product.deleteUser)
 }
 export default userRoute

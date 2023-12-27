@@ -100,33 +100,15 @@ const useGreateroperators = async (req, res) => {
         res.status(400).send("user not found")
     }
 }
-
-const updateuser = async (req, res) => {
-    try {
-        const { id } = req.params;
-        let updataeuser = await db.userModel.update({ class: req.body.class }, {
-            where: {
-                id: id
-            }
-        })
-        res.status(200).send(updataeuser)
-    } catch {
-        console.log("error");
-        res.status(400).send("user not found")
-    }
-}
-
-const deleteuser=async(req,res)=>{
+const updateuser=async(req,res)=>{
     try{
         const {id} = req.params;
-
-        let deleteUser= await db.userModel.destroy({
-            where: {
-              id: id
-            }
+        let updateUser = await db.userModel.update({class : req.body.class},{
+                where : {
+                    id : id
+                    }
         })
-        
-        res.sendStatus(200).send(deleteUser)
+        res.status(200).send(updateUser)
     }
     catch{
         console.log("error");
@@ -134,4 +116,22 @@ const deleteuser=async(req,res)=>{
     }
 }
 
-export { getUsers, saveUsers, useAndoperators, useOroperators, useNotoperators, useGreateroperators, updateuser ,deleteuser}
+const deleteUser=async(req,res)=>{
+     try{
+        const {id} = req.params;
+
+        let response= await db.userModel.destroy( {
+            where: {
+              id: id
+            }
+        })
+        
+        res.sendStatus(200).send(response)
+    }
+    catch{
+        console.log("error");
+        res.status(400).send("user not found")
+    }
+}
+
+export { getUsers, saveUsers, useAndoperators, useOroperators, useNotoperators, useGreateroperators,updateuser,deleteUser}

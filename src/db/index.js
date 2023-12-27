@@ -1,7 +1,6 @@
 import { Sequelize, DataTypes } from "sequelize"
 import product from "../models/product.model.js";
 import user from "../models/user.model.js";
-import buynow from "../buynowdata/buynowdata.js";
 import category from "../models/category.model.js";
 
 //create connection   dbname,root,passwqord,host,
@@ -28,10 +27,6 @@ db.userModel = user(sequelize, DataTypes)
 // db.userModel.sync({alter:true});
 
 // db.userModel.sync({force:true});
-
-db.buynow = buynow(sequelize, DataTypes)
-// db.buynow.sync({alter : true});
-
 
 db.products = category(sequelize, DataTypes)
 // db.products.sync({alter : true}) 

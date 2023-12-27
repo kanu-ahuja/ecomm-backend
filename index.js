@@ -16,7 +16,6 @@ var corsOptions = {
 }
 app.use(cors(corsOptions))
 
-
 userRoute(app)
 productRoute(app)
 
