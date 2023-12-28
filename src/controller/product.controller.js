@@ -2,8 +2,6 @@ import db from '../db/index.js'
 
 const create = async (req, res) => {
     try {
-        req.body.image=req.file.filename
-        console.log(req.body,req.file.filename);
         let data = await db.products.create(req.body);
         res.status(200).send(data)
     } catch (error) {
@@ -27,17 +25,26 @@ const readDetails = async (req, res) => {
     try {
         const { id } = req.params;
         let data = await db.products.findOne({ where: { id: id } });
+
+        if(data === null){
+            throw new Error("Product not found")
+        }
         res.status(200).send(data);
     }
-    catch {
-        console.log(error, "==error")
-        res.status(404).send("User not found")
+    catch(error) {
+        res.status(500).send(error?.message)
     }
 }
 
 const getDetailsById = async (req, res) => {
     try {
+        console.log(req.params)
         let response = await db.products.findOne({ where: { id: req.params.email } })
+        if(response == null)
+        {
+            throw new Error("Product not found")
+        }
+           
         res.status(200).send(response)
     } catch (error) {
         console.log(error, "==error")
@@ -60,20 +67,40 @@ const update = async (req, res) => {
         res.status(404).send("product not found")
     }
 }
-const deleteproduct =async(req,res)=>{
-    try{
-        const {id} = req.params;
+const deleteproduct = async (req, res) => {
+    try {
+        const { id } = req.params;
 
-        let response= await db.products.destroy( {
+        let response = await db.products.destroy({
             where: {
-              id: id
+                id: id
             }
         })
         res.sendStatus(200).send(response)
     }
-    catch{
+    catch {
         console.log("error");
         res.status(400).send("user not found")
     }
 }
-export { create, read, readDetails, getDetailsById, update ,deleteproduct}
+
+const multerdetails = async (req, res) => {
+    try {
+        let data = await db.products.create(req.body);
+        res.status(200).send(data)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+const multipleproduct=async(req,res)=>{
+    try {
+        let multipleproduct = await db.products.create(req.body);
+        console.log(multipleproduct,"===");
+        res.status(200).send(multipleproduct)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
+
+export { create, read, readDetails, getDetailsById, update, deleteproduct,multerdetails,multipleproduct}

@@ -11,10 +11,15 @@ const port = 5000
 
 app.use(express.json())
 
+
+app.use('/uploads', express.static(process.cwd()+'/uploads'))
+
+
 var corsOptions = {
   origin: "*",
 }
 app.use(cors(corsOptions))
+
 
 userRoute(app)
 productRoute(app)
